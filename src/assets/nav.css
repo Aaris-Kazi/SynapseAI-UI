@@ -1,0 +1,30 @@
+header {
+    position: sticky;
+}
+
+.nav {
+    margin-right: 5%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-items: center;
+    align-items: start;
+    align-items: flex-end;
+    flex-direction: row;
+    
+}
+.nav-item {
+    margin-left: 7%;
+}
+
+.logo {
+    display: flex;
+    align-items: baseline;
+    gap: 3%;
+}
+
+.logo svg {
+    flex-shrink: 0;
+}
+
+@media (max-width: 600px) {}
+@media (min-width: 601px) and (max-width: 2000px) {}
