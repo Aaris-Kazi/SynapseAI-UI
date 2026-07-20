@@ -5,7 +5,7 @@ import Headers from "../components/clientsideComponents/Headers";
 const Dashboard = () => {
   return (
     <>
-    <Headers />
+    <Headers showLogin={true} />
     <div className="dashboard">
 
       <section className="hero">
