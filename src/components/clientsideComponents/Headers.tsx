@@ -24,7 +24,9 @@ const Headers = ({ showLogin = false }: HeaderProps) => {
       
         <h2 className="text-2xl font-bold logo">
           <Logo />
+          <Link to={'/'} className="nav-link">
           SynapseAI
+          </Link>
           </h2>
       <ul className="nav justify-between">
         {showLogin && (
