@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../../assets/nav.css"
 import Logo from "./Logo";
+import { Link } from "react-router-dom";
 
 const Headers = () => {
   const [theme, setTheme] = useState("light");
@@ -20,7 +21,9 @@ const Headers = () => {
         </h2>
       <ul className="nav justify-between">
         <li className="nav-item">
-          <button className="btn font-bold highlight">Login</button>
+          <Link to={'/login'} className="loginAnchor" >
+            <button className="btn font-bold highlight">Login</button>
+          </Link>
         </li>
         <li className="nav-item">
           <button className="btn" onClick={toggleTheme}>

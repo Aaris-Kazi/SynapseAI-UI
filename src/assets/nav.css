@@ -26,5 +26,12 @@ header {
     flex-shrink: 0;
 }
 
+.loginAnchor {
+    text-decoration: none;
+    background-color: var(--background2);
+    color: var(--text-primary);
+    border: var(--text-primary);
+}
+
 @media (max-width: 600px) {}
 @media (min-width: 601px) and (max-width: 2000px) {}

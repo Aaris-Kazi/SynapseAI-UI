@@ -14,6 +14,7 @@ const Footer = () => {
                     <a href="#how-it-works">How it works</a>
                     <a href="#">Docs</a>
                     <a href="#">GitHub</a>
+                    <a href="#">Build by IZAK Studios</a>
                 </div>
                 <div className="footer-note">Built on Ollama · ChatGPT · Oauth2 Google · Spring Boot · React</div>
             </div>

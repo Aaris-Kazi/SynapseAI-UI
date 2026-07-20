@@ -1,8 +1,13 @@
 import "../assets/dashboard.css";
+import Footer from "../components/clientsideComponents/Footer";
+import Headers from "../components/clientsideComponents/Headers";
 
 const Dashboard = () => {
   return (
+    <>
+    <Headers />
     <div className="dashboard">
+
       <section className="hero">
         <div className="eyebrow">
           <span className="pulse-dot"></span>Running entirely on your own
@@ -63,28 +68,28 @@ const Dashboard = () => {
       <div className="feature-grid">
         <div className="feature-card">
           <div className="feature-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
           <h3>Runs entirely on your machine</h3>
           <p>Every prompt and response stays inside your own Ollama instance. Nothing is sent to a third-party API.</p>
         </div>
         <div className="feature-card">
           <div className="feature-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16M4 6h16M4 18h10"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M4 12h16M4 6h16M4 18h10"/></svg>
           </div>
           <h3>Switch models mid-conversation</h3>
           <p>Move between Llama, Mistral, CodeLlama, or any model you've pulled — right from the chat.</p>
         </div>
         <div className="feature-card">
           <div className="feature-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
           </div>
           <h3>Full conversation history</h3>
           <p>Every thread is saved and organized, so you can pick up a conversation exactly where you left it.</p>
         </div>
         <div className="feature-card">
           <div className="feature-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg>
           </div>
           <h3>Open backend, built to extend</h3>
           <p>A straightforward Spring Boot API sits between the UI and Ollama, so you can plug in your own tools.</p>
@@ -143,6 +148,8 @@ const Dashboard = () => {
         </div>
       </section>
     </div>
+    <Footer />
+    </>
   );
 };
 
