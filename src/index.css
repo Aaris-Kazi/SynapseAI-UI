@@ -50,6 +50,10 @@
 body {
     background-color: var(--background);
     color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    
+    display: flex;
+    flex-direction: column;
 
     transition:
         background-color 0.3s,
