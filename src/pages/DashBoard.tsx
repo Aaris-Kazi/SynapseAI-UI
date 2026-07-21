@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../assets/dashboard.css";
 import Footer from "../components/clientsideComponents/Footer";
 import Headers from "../components/clientsideComponents/Headers";
@@ -24,9 +25,9 @@ const Dashboard = () => {
           yours to extend.
         </p>
         <div className="hero-ctas">
-          <a href="#" className="hero-btn-primary">
+          <Link to={'/chat'} className="hero-btn-primary">
             Try Synapse
-          </a>
+          </Link>
           <a href="#how-it-works" className="hero-btn-secondary">
             See how it works
           </a>
