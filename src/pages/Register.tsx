@@ -45,7 +45,7 @@ const Register = () => {
 
                         <div className="checkbox-row">
                             <input id="terms" type="checkbox" required />
-                            <label htmlFor="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+                            <label className="textHandler" htmlFor="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
                         </div>
 
                         <button type="submit" className="login-btn-primary">Create account</button>
