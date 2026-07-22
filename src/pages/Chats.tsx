@@ -1,6 +1,7 @@
 import { useState } from "react";
 import '../assets/chat.css';
 import Logo from "../components/clientsideComponents/Logo";
+import { Link } from "react-router-dom";
 const Chats = () => {
 
     const [theme, setTheme] = useState("light");
@@ -19,7 +20,9 @@ const Chats = () => {
                 <div className="sidebar-header">
                     <div className="brand">
                         <Logo />
+                        <Link to={'/'}>
                         <span>Synapse AI</span>
+                        </Link>
                     </div>
                     <button className="icon-btn" aria-label="Collapse sidebar">‹</button>
                 </div>
