@@ -8,6 +8,7 @@ body::before {
     height: 900px;
     background: radial-gradient(circle, rgba(94, 234, 212, 0.06) 0%, rgba(167, 139, 250, 0.04) 40%, transparent 70%);
     pointer-events: none;
+    -webkit-font-smoothing: antialiased;
     z-index: 0;
 }
 
@@ -18,12 +19,12 @@ body::before {
     padding: 0;
 }
 
-body {
+/* body {
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     height: 100vh;
     overflow: hidden;
-}
+} */
 
 a {
     color: inherit;
