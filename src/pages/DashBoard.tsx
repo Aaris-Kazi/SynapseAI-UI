@@ -2,8 +2,16 @@ import { Link } from "react-router-dom";
 import "../assets/dashboard.css";
 import Footer from "../components/clientsideComponents/Footer";
 import Headers from "../components/clientsideComponents/Headers";
+import { useEffect } from "react";
+import { checkHealth } from "../components/utills/ServiceLayer";
+
 
 const Dashboard = () => {
+
+  useEffect(() => {
+    void checkHealth();
+  }, []);
+
   return (
     <>
     <Headers showLogin={true} />
