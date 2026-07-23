@@ -8,6 +8,8 @@ export const checkHealth = async () => {
         if (resp.status === config.OK_STATUS) {
           
           console.log(resp.data);
+        } else {
+            console.log("Service not working!")
         }
       } catch (error) {
         console.error('Health check failed:', error);
