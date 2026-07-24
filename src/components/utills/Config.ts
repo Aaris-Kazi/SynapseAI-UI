@@ -3,7 +3,9 @@ const config = {
     HEADER: { "Content-Type": "application/json" },
     TIMEOUT: 5000,
     OK_STATUS: 200,
-    AUTH: "/api/auth"
+    AUTH: "/api/auth",
+    AFTER_LOGIN_PATH: '/chat',
+    ACCESS_TOKEN: "access-token"
 };
 
 export default config;

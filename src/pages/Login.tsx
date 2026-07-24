@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import "../assets/login.css";
 import Headers from "../components/clientsideComponents/Headers";
-import { handleGoogleAlert2 } from "../components/clientsideComponents/clientFunction";
-import Googleicon from "../components/clientsideComponents/GoogleIcon";
 import { useState } from "react";
 import type { SubmitEvent } from "react";
 import { loginService } from "../components/utills/ServiceLayer";
 import Loader from "../components/clientsideComponents/Loader";
+import GoogleLoginButton from "../components/utills/GoogleLoginButton";
+import config from "../components/utills/Config";
 
 
 const Login = () => {
@@ -21,7 +21,7 @@ const Login = () => {
         setLoader(true);
         try {
             await loginService(username, password);
-            navigate('/chat')
+            navigate(config.AFTER_LOGIN_PATH)
             
             
         } catch (error) {
@@ -44,10 +44,11 @@ const Login = () => {
                         <p>Sign in to continue to your models</p>
                     </div>
 
-                    <button className="btn-google" type="button" onClick={handleGoogleAlert2}>
+                    {/* <button className="btn-google" type="button" onClick={handleGoogleAlert2}>
                         <Googleicon />
                         Continue with Google
-                    </button>
+                    </button> */}
+                    <GoogleLoginButton />
 
                     <div className="divider">or sign in with email</div>
                     <form onSubmit={submittingForm} >

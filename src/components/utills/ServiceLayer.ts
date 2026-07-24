@@ -41,7 +41,7 @@ export const loginService = async (username: string, password: string): Promise<
         const resp = await createPost(config.AUTH + '/v1/login', payload, config.HEADER);
         if (resp.status === config.OK_STATUS) {
             const data = resp.data as Record<string, string>;
-            const token = data["access-token"] 
+            const token = data[config.ACCESS_TOKEN] 
             if (token) {
                 setAccessToken(token);
             }
@@ -70,14 +70,38 @@ export const registerService = async (firstname: string, lastname: string, usern
         const resp = await createPost(config.AUTH + '/v1/register', payload, config.HEADER);
         if (resp.status === config.OK_STATUS) {
             const data = resp.data as Record<string, string>;
-            const token = data["access-token"] 
-            console.log(token);
+            const token = data[config.ACCESS_TOKEN] 
             
             if (token) {
                 setAccessToken(token);
             }
         } else {
             console.log("RegisterService not working!")
+        }
+        return resp.data
+    } catch (error) {
+        console.error('`LoginService` failed due to :: ', error);
+        throw error;
+    }
+}
+
+
+export const googleLoginService = async (token: string): Promise<Record<string, unknown>> => {
+
+    try {
+        const payload = {
+            "token": token
+        }
+        const resp = await createPost(config.AUTH + '/v1/googleLogin', payload, config.HEADER);
+        if (resp.status === config.OK_STATUS) {
+            const data = resp.data as Record<string, string>;
+            const token = data[config.ACCESS_TOKEN] 
+            
+            if (token) {
+                setAccessToken(token);
+            }
+        } else {
+            console.log("GoogleLoginService not working!")
         }
         return resp.data
     } catch (error) {

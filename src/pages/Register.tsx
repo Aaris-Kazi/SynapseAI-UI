@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import "../assets/login.css";
-import Googleicon from "../components/clientsideComponents/GoogleIcon";
 import Headers from "../components/clientsideComponents/Headers";
-import { handleGoogleAlert2 } from "../components/clientsideComponents/clientFunction";
 import { useState } from "react";
 import type { SubmitEvent } from "react";
 import Loader from "../components/clientsideComponents/Loader";
 import { registerService } from "../components/utills/ServiceLayer";
+import GoogleLoginButton from "../components/utills/GoogleLoginButton";
+import config from "../components/utills/Config";
 
 const Register = () => {
 
@@ -25,7 +25,7 @@ const Register = () => {
         setLoader(true);
         try {
             await registerService(firstName, lastName, username, email, password);
-            navigate('/chat')
+            navigate(config.AFTER_LOGIN_PATH)
         } catch (error) {
             
             const message = error instanceof Error ? error.message : "Unknown error";
@@ -48,10 +48,11 @@ const Register = () => {
                         <p>Start chatting with your own models</p>
                     </div>
 
-                    <button className="btn-google" type="button" onClick={handleGoogleAlert2}>
+                    {/* <button className="btn-google" type="button" onClick={handleGoogleAlert2}>
                         <Googleicon />
                         Sign up with Google
-                    </button>
+                    </button> */}
+                    <GoogleLoginButton />
 
                     <div className="divider">or sign in with email</div>
 
