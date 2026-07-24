@@ -8,7 +8,7 @@ const apiClient = axios.create({
 })
 
 
-export const createPost = async (endpoint: string, props: Request, headers: AxiosRequestHeaders): Promise<AxiosResponse> => {
+export const createPost = async <T> (endpoint: string, props: T, headers: Record<string, string>): Promise<AxiosResponse> => {
   /*
    * This method allows to post  API
    */
@@ -16,7 +16,7 @@ export const createPost = async (endpoint: string, props: Request, headers: Axio
     const response = await apiClient.post(endpoint, props, { headers });
     return response
   } catch (error) {
-    console.error("Error Create webcleint:: ", error);
+    console.error("Error Create Post:: ", error);
     throw error
   }
 }
@@ -29,7 +29,7 @@ export const createGetParams = async (endpoint: string, params: AxiosRequestHead
     const response = await apiClient.get(endpoint, { params: params, headers: headers });
     return response
   } catch (error) {
-    console.error("Error Create webcleint:: ", error);
+    console.error("Error GetParams:: ", error);
     throw error
   }
 }
@@ -42,7 +42,7 @@ export const createGet = async (endpoint: string): Promise<AxiosResponse> =>  {
     const response = await apiClient.get(endpoint);
     return response
   } catch (error) {
-    console.error("Error Create webcleint:: ", error);
+    console.error("Error Get:: ", error);
     throw error
   }
 }
