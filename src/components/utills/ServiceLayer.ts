@@ -23,6 +23,7 @@ export const checkHealth = async () => {
             console.log(resp.data);
         } else {
             console.log("Service not working!")
+            localStorage.removeItem(ACCESS_TOKEN_KEY);
         }
     } catch (error) {
         console.error('Health check failed:', error);
