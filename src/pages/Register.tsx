@@ -1,10 +1,43 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../assets/login.css";
 import Googleicon from "../components/clientsideComponents/GoogleIcon";
 import Headers from "../components/clientsideComponents/Headers";
-import { handleGoogleAlert2, handleGoogleAlert } from "../components/clientsideComponents/clientFunction";
+import { handleGoogleAlert2 } from "../components/clientsideComponents/clientFunction";
+import { useState } from "react";
+import type { SubmitEvent } from "react";
+import Loader from "../components/clientsideComponents/Loader";
+import { registerService } from "../components/utills/ServiceLayer";
 
 const Register = () => {
+
+    const [lastName, setLastName] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [, setError] = useState("");
+    const [loader, setLoader] = useState(false);
+    const navigate = useNavigate();
+
+    const submittingForm = async (e: SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        setLoader(true);
+        try {
+            await registerService(firstName, lastName, username, email, password);
+            navigate('/chat')
+        } catch (error) {
+            
+            const message = error instanceof Error ? error.message : "Unknown error";
+            setError(message);
+            console.log("`Login` error due to ::" + message);
+            
+        }
+
+        setLoader(false);
+    };
+
+
     return (
         <>
             <Headers />
@@ -22,24 +55,28 @@ const Register = () => {
 
                     <div className="divider">or sign in with email</div>
 
-                    <form onSubmit={handleGoogleAlert}>
+                    <form onSubmit={submittingForm}>
                         <div className="name-row">
                             <div className="field">
                                 <label htmlFor="firstName">First name</label>
-                                <input id="firstName" type="text" placeholder="Ada" required />
+                                <input id="firstName" type="text" placeholder="Ada" onChange={(e) => setFirstName(e.target.value)} required />
                             </div>
                             <div className="field">
                                 <label htmlFor="lastName">Last name</label>
-                                <input id="lastName" type="text" placeholder="Lovelace" required />
+                                <input id="lastName" type="text" placeholder="Lovelace" onChange={(e) => setLastName(e.target.value)} required />
+                            </div>
+                            <div className="field">
+                                <label htmlFor="userName">User name</label>
+                                <input id="userName" type="text" placeholder="ada_love" onChange={(e) => setUsername(e.target.value)} required />
                             </div>
                         </div>
                         <div className="field">
                             <label htmlFor="email">Email</label>
-                            <input id="email" type="email" placeholder="you@example.com" required />
+                            <input id="email" type="email" placeholder="you@example.com" onChange={(e) => setEmail(e.target.value)} required />
                         </div>
                         <div className="field">
                             <label htmlFor="password">Password</label>
-                            <input id="password" type="password" placeholder="••••••••" required minLength={8} />
+                            <input id="password" type="password" placeholder="••••••••" onChange={(e) => setPassword(e.target.value)} required minLength={8} />
                             <div className="field-hint">At least 8 characters.</div>
                         </div>
 
@@ -48,7 +85,7 @@ const Register = () => {
                             <label className="textHandler" htmlFor="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
                         </div>
 
-                        <button type="submit" className="login-btn-primary">Create account</button>
+                        <button type="submit" className="login-btn-primary">{loader&&(<Loader />)}{!loader&&("Create account")}</button>
                     </form>
                     <div className="card-foot">
 

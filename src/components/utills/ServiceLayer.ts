@@ -42,13 +42,42 @@ export const loginService = async (username: string, password: string): Promise<
         if (resp.status === config.OK_STATUS) {
             const data = resp.data as Record<string, string>;
             const token = data["access-token"] 
+            if (token) {
+                setAccessToken(token);
+            }
+        } else {
+            console.log("Login Service not working!")
+        }
+        return resp.data
+    } catch (error) {
+        console.error('`LoginService` failed due to :: ', error);
+        throw error;
+    }
+}
+
+
+
+export const registerService = async (firstname: string, lastname: string, username: string, email: string, password: string): Promise<Record<string, unknown>> => {
+
+    try {
+        const payload = {
+            "firstName": firstname,
+            "lastName": lastname,
+            "username": username,
+            "email": email,
+            "password": password
+        }
+        const resp = await createPost(config.AUTH + '/v1/register', payload, config.HEADER);
+        if (resp.status === config.OK_STATUS) {
+            const data = resp.data as Record<string, string>;
+            const token = data["access-token"] 
             console.log(token);
             
             if (token) {
                 setAccessToken(token);
             }
         } else {
-            console.log("Service not working!")
+            console.log("RegisterService not working!")
         }
         return resp.data
     } catch (error) {
