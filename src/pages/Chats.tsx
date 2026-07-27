@@ -117,8 +117,8 @@ const Chats = () => {
 
                 <div className="input-bar-wrap">
                     <div className="input-bar">
-                        <textarea rows={1} placeholder='Message Synapse... (Shift+Enter for a new line)'></textarea>
-                        <button className="send-btn" aria-label="Send message">
+                        <textarea rows={1} placeholder='Message Synapse... (Shift+Enter for a new line)' id="queries" name="queries"></textarea>
+                        <button className="send-btn" aria-label="Send message" type="submit">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="12" y1="19" x2="12" y2="5" />
                                 <polyline points="5 12 12 5 19 12" />

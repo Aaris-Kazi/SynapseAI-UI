@@ -14,7 +14,6 @@ const GoogleLoginButton = () => {
         }
 
         try {
-
             googleLoginService(credentialResponse.credential)
 
             navigate(config.AFTER_LOGIN_PATH)
