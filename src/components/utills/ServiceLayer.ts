@@ -109,3 +109,26 @@ export const googleLoginService = async (token: string): Promise<Record<string, 
         throw error;
     }
 }
+
+
+export const chatService = async (message: string): Promise<Record<string, unknown>> => {
+
+    try {
+        const payload = {
+            "message": message
+        }
+
+        const headers = {
+            "Content-Type": "application/json",
+            "Authorization" : config.BEARER + getAccessToken()
+        }
+        const resp = await createPost('/api/v1/chat', payload, headers);
+        if (resp.status !== config.OK_STATUS) {
+            console.log("ChatService not working! due to " + resp.data)
+        }
+        return resp.data
+    } catch (error) {
+        console.error('`LoginService` failed due to :: ', error);
+        throw error;
+    }
+}

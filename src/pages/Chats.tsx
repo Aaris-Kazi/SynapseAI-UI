@@ -2,17 +2,46 @@ import { useState } from "react";
 import '../assets/chat.css';
 import Logo from "../components/clientsideComponents/Logo";
 import { Link } from "react-router-dom";
+
+import type { SubmitEvent } from "react";
+import { chatService } from "../components/utills/ServiceLayer";
+
 const Chats = () => {
 
     const [theme, setTheme] = useState("light");
-    
-      const toggleTheme = () => {
+    const [loader, setLoader] = useState(false);
+    const [message, setMessage] = useState("");
+    const [, setError] = useState("");
+
+    const toggleTheme = () => {
         const newTheme = theme === "light" ? "dark" : "light";
-    
+
         setTheme(newTheme);
-    
+
         document.documentElement.setAttribute("data-theme", newTheme);
-      };
+    };
+
+
+    const submittingForm = async (e: SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoader(true);
+        const txt = message;
+        console.log(txt);
+        setMessage("")
+        try {
+
+            const resp = await chatService(txt);
+            const data = resp as Record<string, string>
+            console.log(data['response']);
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : "Unknown error";
+            setError(errorMessage);
+            console.log("`Chat` error due to ::" + errorMessage);
+        }
+
+        setLoader(false);
+    }
+
     return (
 
         <div className="app">
@@ -21,7 +50,7 @@ const Chats = () => {
                     <div className="brand">
                         <Logo />
                         <Link to={'/'}>
-                        <span>Synapse AI</span>
+                            <span>Synapse AI</span>
                         </Link>
                     </div>
                     <button className="icon-btn" aria-label="Collapse sidebar">‹</button>
@@ -75,8 +104,8 @@ const Chats = () => {
                         <span className="model-chip">llama3.1:8b</span>
                         <button className="avatar-btn" aria-label="Account menu">WH</button>
                         <button className="btn" onClick={toggleTheme}>
-            {theme === "light" ? "🌙 Dark" : "☀️ Light"}
-          </button>
+                            {theme === "light" ? "🌙 Dark" : "☀️ Light"}
+                        </button>
                     </div>
                 </div>
 
@@ -101,21 +130,35 @@ const Chats = () => {
                             <div className="bubble-user">Here's the class — what would you change first?</div>
                         </div>
 
-                        <div className="row-assistant">
-                            <div className="assistant-avatar">
-                                <Logo />
+                        {loader && (
+                            <div className="row-assistant">
+                                <div className="assistant-avatar">
+                                    <Logo />
+                                </div>
+                                <div className="typing-row">
+                                    <span className="dot"></span>
+                                    <span className="dot"></span>
+                                    <span className="dot"></span>
+                                </div>
                             </div>
-                            <div className="typing-row">
-                                <span className="dot"></span>
-                                <span className="dot"></span>
-                                <span className="dot"></span>
-                            </div>
-                        </div>
+                        )}
 
                     </div>
                 </div>
 
-                <div className="input-bar-wrap">
+                <form className="input-bar-wrap" onSubmit={submittingForm}>
+                    <div className="input-bar">
+                        <textarea rows={1} placeholder='Message Synapse... (Shift+Enter for a new line)' id="queries" name="queries" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+                        <button className="send-btn" aria-label="Send message" type="submit">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="12" y1="19" x2="12" y2="5" />
+                                <polyline points="5 12 12 5 19 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div className="input-footnote">Synapse runs locally — responses come from your own Ollama instance.</div>
+                </form>
+                {/* <div className="input-bar-wrap">
                     <div className="input-bar">
                         <textarea rows={1} placeholder='Message Synapse... (Shift+Enter for a new line)' id="queries" name="queries"></textarea>
                         <button className="send-btn" aria-label="Send message" type="submit">
@@ -126,7 +169,7 @@ const Chats = () => {
                         </button>
                     </div>
                     <div className="input-footnote">Synapse runs locally — responses come from your own Ollama instance.</div>
-                </div>
+                </div> */}
 
             </div>
         </div>
