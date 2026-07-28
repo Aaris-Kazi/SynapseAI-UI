@@ -3,6 +3,9 @@ import '../assets/chat.css';
 import Logo from "../components/clientsideComponents/Logo";
 import { Link } from "react-router-dom";
 import { chatService } from "../components/utills/ServiceLayer";
+import UserBubble from "../components/clientsideComponents/UserBubble";
+import MockChat from "../components/utills/MockChat";
+import AgentBubble from "../components/clientsideComponents/AgentBubble";
 
 const Chats = () => {
 
@@ -11,6 +14,7 @@ const Chats = () => {
     const [message, setMessage] = useState("");
     const [, setError] = useState("");
     const [isSending, setIsSending] = useState(false);
+    const [chat, setChat] = useState(MockChat.chat);
 
     const toggleTheme = () => {
         const newTheme = theme === "light" ? "dark" : "light";
@@ -24,18 +28,19 @@ const Chats = () => {
     const submittingForm = async (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!message.trim()) return;
+        const trimmedMessage = message.trim();
+        if (!trimmedMessage) return;
 
         setIsSending(true);
         setLoader(true);
+        setChat((prevChat) => [...prevChat, { user: trimmedMessage }]);
         const txt = message;
-        console.log(txt);
         setMessage("");
 
         try {
             const resp = await chatService(txt);
             const data = resp as Record<string, string>;
-            console.log(data['response']);
+            setChat((prev) => [...prev, {agent: data['response']}])
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : "Unknown error";
             setError(errorMessage);
@@ -122,24 +127,19 @@ const Chats = () => {
 
                 <div className="messages">
                     <div className="messages-inner">
+                        {chat.map((item, index) => {
+                            if (item.user) {
+                                return <UserBubble key={`user-${index}`} message={item.user} />;
+                            }
 
-                        <div className="row-user">
-                            <div className="bubble-user">Can you review my JWT filter for null pointer risks?</div>
-                        </div>
+                            if (item.agent) {
+                                return (
+                                    <AgentBubble key={`agent-${index}`} message={item.agent} />
+                                );
+                            }
 
-                        <div className="row-assistant">
-                            <div className="assistant-avatar">
-                                <Logo />
-                            </div>
-                            <div className="assistant-text">
-                                <p>Sure — the most common issue in filters like this is calling getHeader("Authorization") and immediately running substring(7) on it without checking for null or a missing "Bearer " prefix. If the header is absent, getHeader returns null, and null.substring() throws a NullPointerException before your filter chain even gets a chance to reject the request cleanly.</p>
-                                <p>A safer pattern is to guard early: check the header is non-null and starts with "Bearer " before touching it, and let anything else fall through to an explicit 401. Paste the class whenever you're ready and I'll go through it line by line.</p>
-                            </div>
-                        </div>
-
-                        <div className="row-user">
-                            <div className="bubble-user">Here's the class — what would you change first?</div>
-                        </div>
+                            return null;
+                        })}
 
                         {loader && (
                             <div className="row-assistant">
