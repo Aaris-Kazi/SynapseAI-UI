@@ -1,5 +1,6 @@
+import type { AxiosRequestHeaders } from "axios";
 import config from "./Config";
-import { createGet, createPost } from "./WebClient";
+import { createGet, createGetHeaders, createPost } from "./WebClient";
 
 const ACCESS_TOKEN_KEY = "access_token";
 
@@ -129,6 +130,24 @@ export const chatService = async (message: string): Promise<Record<string, unkno
         return resp.data
     } catch (error) {
         console.error('`LoginService` failed due to :: ', error);
+        throw error;
+    }
+}
+
+export const getUserNameService = async (): Promise<Record<string, unknown>> => {
+
+    try {
+        const headers = {
+            "Content-Type": "application/json",
+            "Authorization" : config.BEARER + getAccessToken()
+        }
+        const resp = await createGetHeaders('/api/v1/userDetails', headers as AxiosRequestHeaders);
+        if (resp.status !== config.OK_STATUS) {
+            console.log("UserNameService not working! due to " + resp.data)
+        }
+        return resp.data
+    } catch (error) {
+        console.error('`UserNameService` failed due to :: ', error);
         throw error;
     }
 }

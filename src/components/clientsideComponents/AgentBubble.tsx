@@ -8,9 +8,7 @@ const AgentBubble = ({ message = "" }) => {
                 <Logo />
             </div>
             <div className="assistant-text">
-                <p>
-                    <ReactMarkdown>{message}</ReactMarkdown>
-                </p>
+                <ReactMarkdown>{message}</ReactMarkdown>
             </div>
         </div>
     );

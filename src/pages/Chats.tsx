@@ -1,8 +1,8 @@
-import { useState, type SubmitEvent, type KeyboardEvent } from "react";
+import { useState, type SubmitEvent, type KeyboardEvent, useEffect } from "react";
 import '../assets/chat.css';
 import Logo from "../components/clientsideComponents/Logo";
 import { Link } from "react-router-dom";
-import { chatService } from "../components/utills/ServiceLayer";
+import { chatService, getUserNameService } from "../components/utills/ServiceLayer";
 import UserBubble from "../components/clientsideComponents/UserBubble";
 import MockChat from "../components/utills/MockChat";
 import AgentBubble from "../components/clientsideComponents/AgentBubble";
@@ -15,6 +15,7 @@ const Chats = () => {
     const [, setError] = useState("");
     const [isSending, setIsSending] = useState(false);
     const [chat, setChat] = useState(MockChat.chat);
+    const [userName, setUserName] = useState("");
 
     const toggleTheme = () => {
         const newTheme = theme === "light" ? "dark" : "light";
@@ -23,6 +24,24 @@ const Chats = () => {
 
         document.documentElement.setAttribute("data-theme", newTheme);
     };
+
+    useEffect(() => {
+        const getUser = async () => {
+            try {
+                const resp = await getUserNameService();
+                const data = resp as Record<string, string>;
+                
+                setUserName(data['username'].charAt(0));
+            } catch (error) {
+                const errorMessage = error instanceof Error ? error.message : "Unknown error";
+                setError(errorMessage);
+                console.log("`Chat` error due to ::" + errorMessage);
+            }
+        }
+
+        void getUser();
+
+    }, []);
 
 
     const submittingForm = async (e: SubmitEvent<HTMLFormElement>) => {
@@ -118,7 +137,7 @@ const Chats = () => {
                     </div>
                     <div className="topbar-right">
                         <span className="model-chip">llama3.1:8b</span>
-                        <button className="avatar-btn" aria-label="Account menu">WH</button>
+                        <button className="avatar-btn" aria-label="Account menu">{userName}</button>
                         <button className="btn" onClick={toggleTheme}>
                             {theme === "light" ? "🌙 Dark" : "☀️ Light"}
                         </button>

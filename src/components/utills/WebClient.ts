@@ -33,6 +33,18 @@ export const createGetParams = async (endpoint: string, params: AxiosRequestHead
     throw error
   }
 }
+export const createGetHeaders = async (endpoint: string, headers: AxiosRequestHeaders): Promise<AxiosResponse> => {
+  /*
+   * This method allows to Get  API
+   */
+  try {
+    const response = await apiClient.get(endpoint, { headers: headers });
+    return response
+  } catch (error) {
+    console.error("Error GetHeaders :: ", error);
+    throw error
+  }
+}
 
 export const createGet = async (endpoint: string): Promise<AxiosResponse> =>  {
   /*
