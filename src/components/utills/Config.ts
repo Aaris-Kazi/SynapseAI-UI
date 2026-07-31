@@ -8,7 +8,8 @@ const config = {
     AFTER_LOGIN_PATH: '/chat',
     ACCESS_TOKEN: "access-token",
     AUTHORIZATION: "Authorization",
-    BEARER: "Bearer "
+    BEARER: "Bearer ",
+    ACCESS_TOKEN_KEY: "access_token"
 };
 
 export default config;

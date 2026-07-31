@@ -2,18 +2,17 @@ import type { AxiosRequestHeaders } from "axios";
 import config from "./Config";
 import { createGet, createGetHeaders, createPost } from "./WebClient";
 
-const ACCESS_TOKEN_KEY = "access_token";
 
 export const setAccessToken = (token?: string) => {
     if (token) {
-        localStorage.setItem(ACCESS_TOKEN_KEY, token);
+        localStorage.setItem(config.ACCESS_TOKEN_KEY, token);
     } else {
-        localStorage.removeItem(ACCESS_TOKEN_KEY);
+        localStorage.removeItem(config.ACCESS_TOKEN_KEY);
     }
 };
 
 export const getAccessToken = (): string | null => {
-    return localStorage.getItem(ACCESS_TOKEN_KEY);
+    return localStorage.getItem(config.ACCESS_TOKEN_KEY);
 };
 
 export const checkHealth = async () => {
@@ -24,7 +23,7 @@ export const checkHealth = async () => {
             console.log(resp.data);
         } else {
             console.log("Service not working!")
-            localStorage.removeItem(ACCESS_TOKEN_KEY);
+            localStorage.removeItem(config.ACCESS_TOKEN_KEY);
         }
     } catch (error) {
         console.error('Health check failed:', error);
@@ -143,10 +142,12 @@ export const getUserNameService = async (): Promise<Record<string, unknown>> => 
         }
         const resp = await createGetHeaders('/api/v1/userDetails', headers as AxiosRequestHeaders);
         if (resp.status !== config.OK_STATUS) {
+            localStorage.removeItem(config.ACCESS_TOKEN_KEY);
             console.log("UserNameService not working! due to " + resp.data)
         }
         return resp.data
     } catch (error) {
+        localStorage.removeItem(config.ACCESS_TOKEN_KEY);
         console.error('`UserNameService` failed due to :: ', error);
         throw error;
     }

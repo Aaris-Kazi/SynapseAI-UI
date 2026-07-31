@@ -1,7 +1,7 @@
 import { useState, type SubmitEvent, type KeyboardEvent, useEffect } from "react";
 import '../assets/chat.css';
 import Logo from "../components/clientsideComponents/Logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { chatService, getUserNameService } from "../components/utills/ServiceLayer";
 import UserBubble from "../components/clientsideComponents/UserBubble";
 import MockChat from "../components/utills/MockChat";
@@ -16,6 +16,7 @@ const Chats = () => {
     const [isSending, setIsSending] = useState(false);
     const [chat, setChat] = useState(MockChat.chat);
     const [userName, setUserName] = useState("");
+    const navigate = useNavigate();
 
     const toggleTheme = () => {
         const newTheme = theme === "light" ? "dark" : "light";
@@ -30,12 +31,12 @@ const Chats = () => {
             try {
                 const resp = await getUserNameService();
                 const data = resp as Record<string, string>;
-                
                 setUserName(data['username'].charAt(0));
             } catch (error) {
                 const errorMessage = error instanceof Error ? error.message : "Unknown error";
                 setError(errorMessage);
                 console.log("`Chat` error due to ::" + errorMessage);
+                navigate("/")
             }
         }
 
