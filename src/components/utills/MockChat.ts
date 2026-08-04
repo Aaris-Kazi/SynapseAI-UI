@@ -1,9 +1,8 @@
 const MockChat = {
     chat : [
-        {"user": "Can you review my JWT filter for null pointer risks?"},
-        {"agent": "Sure — the most common issue in filters like this is calling getHeader(\"Authorization\") and immediately running substring(7) on it without checking for null or a missing \"Bearer \" prefix. If the header is absent, getHeader returns null, and null.substring() throws a NullPointerException before your filter chain even gets a chance to reject the request cleanly."},
-        {"user": "Here's the class — what would you change first?"},
-        {"agent": ""}
+        {'role': 'user', 'content': 'what is a iron??????????????????', 'timeStamp': '2026-08-03T18:30:23.766'},
+        {'role': 'agent', 'content': '**Iron** is a chemical element with the symbol **Fe**. It is the most commonly used and cheapest metal. Iron is a crucial component in many industries, including construction, manufacturing, and transportation.', 'timeStamp': '2026-08-03T18:30:23.767'}
+
     ]
 }
 

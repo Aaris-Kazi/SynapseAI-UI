@@ -6,6 +6,8 @@ import { chatService, getUserNameService } from "../components/utills/ServiceLay
 import UserBubble from "../components/clientsideComponents/UserBubble";
 import MockChat from "../components/utills/MockChat";
 import AgentBubble from "../components/clientsideComponents/AgentBubble";
+import ConversationTitles from "../components/clientsideComponents/ConversationTitles";
+import MockChatList from "../components/utills/MockChatList";
 
 const Chats = () => {
 
@@ -14,7 +16,9 @@ const Chats = () => {
     const [message, setMessage] = useState("");
     const [, setError] = useState("");
     const [isSending, setIsSending] = useState(false);
+    const [chatId, setChatId] = useState<string | null>(null);
     const [chat, setChat] = useState(MockChat.chat);
+    const [chatTitle, ] = useState(MockChatList.chat);
     const [userName, setUserName] = useState("");
     const navigate = useNavigate();
 
@@ -53,14 +57,15 @@ const Chats = () => {
 
         setIsSending(true);
         setLoader(true);
-        setChat((prevChat) => [...prevChat, { user: trimmedMessage }]);
+        setChat((prevChat) => [...prevChat, { role: 'user', content: trimmedMessage, timeStamp: new Date().toISOString() }]);
         const txt = message;
+        const messageId = chatId || null;
         setMessage("");
 
         try {
-            const resp = await chatService(txt);
+            const resp = await chatService(messageId, txt);
             const data = resp as Record<string, string>;
-            setChat((prev) => [...prev, {agent: data['response']}])
+            setChat((prev) => [...prev, { role: 'agent', content: data['response'], timeStamp: new Date().toISOString() }])
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : "Unknown error";
             setError(errorMessage);
@@ -98,26 +103,9 @@ const Chats = () => {
 
                 <div className="conv-list-label">History</div>
                 <div className="conv-list">
-                    <div className="conv-item active">
-                        <div className="conv-title">Refactor auth service</div>
-                        <div className="conv-meta">2h ago</div>
-                    </div>
-                    <div className="conv-item">
-                        <div className="conv-title">Explain WebAssembly memory model</div>
-                        <div className="conv-meta">Yesterday</div>
-                    </div>
-                    <div className="conv-item">
-                        <div className="conv-title">Spring Boot vs Micronaut</div>
-                        <div className="conv-meta">3 days ago</div>
-                    </div>
-                    <div className="conv-item">
-                        <div className="conv-title">Docker healthcheck for Ollama</div>
-                        <div className="conv-meta">Last week</div>
-                    </div>
-                    <div className="conv-item">
-                        <div className="conv-title">React state management options</div>
-                        <div className="conv-meta">Last week</div>
-                    </div>
+                    {chatTitle.map((item, index) => (
+                        <ConversationTitles key={index} id={item.id} title={item.title} meta={"Today"} setActiveChatId={setChatId} setChat={setChat} />
+                    ))}
                 </div>
 
                 <div className="model-picker">
@@ -148,13 +136,13 @@ const Chats = () => {
                 <div className="messages">
                     <div className="messages-inner">
                         {chat.map((item, index) => {
-                            if (item.user) {
-                                return <UserBubble key={`user-${index}`} message={item.user} />;
+                            if (item.role === 'user') {
+                                return <UserBubble key={`user-${index}`} message={item.content} />;
                             }
 
-                            if (item.agent) {
+                            if (item.role === 'agent') {
                                 return (
-                                    <AgentBubble key={`agent-${index}`} message={item.agent} />
+                                    <AgentBubble key={`agent-${index}`} message={item.content   } />
                                 );
                             }
 

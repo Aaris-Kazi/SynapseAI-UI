@@ -21,12 +21,12 @@ export const createPost = async <T> (endpoint: string, props: T, headers: Record
   }
 }
 
-export const createGetParams = async (endpoint: string, params: AxiosRequestHeaders, headers: AxiosRequestHeaders): Promise<AxiosResponse> => {
+export const createGetParams = async (endpoint: string, params: Record<string, unknown>, headers: Record<string, string> | AxiosRequestHeaders): Promise<AxiosResponse> => {
   /*
-   * This method allows to post  API
+   * This method allows to get API with params
    */
   try {
-    const response = await apiClient.get(endpoint, { params: params, headers: headers });
+    const response = await apiClient.get(endpoint, { params, headers });
     return response
   } catch (error) {
     console.error("Error GetParams:: ", error);

@@ -430,3 +430,10 @@ a {
         margin: 0 auto;
     }
 }
+
+@media (min-width: 600px) {
+    .input-bar {
+        min-width: 840px;
+        margin: 0 auto;
+    }
+}

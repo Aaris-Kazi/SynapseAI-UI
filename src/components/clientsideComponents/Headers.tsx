@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../../assets/nav.css"
 import Logo from "./Logo";
 import { Link } from "react-router-dom";
-import { getUserNameService } from "../utills/ServiceLayer";
+import { getAccessToken, getUserNameService } from "../utills/ServiceLayer";
 
 interface HeaderProps {
   showLogin?: boolean;
@@ -12,7 +12,6 @@ const Headers = ({ showLogin = false }: HeaderProps) => {
   const [theme, setTheme] = useState("light");
   const [userName, setUserName] = useState("Login");
   const [loginPath, setLoginPath] = useState("/login");
-  const [loader, setLoader] = useState(false);
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -24,14 +23,16 @@ const Headers = ({ showLogin = false }: HeaderProps) => {
 
   useEffect(() => {
     const getUser = async () => {
-      try {
-        const resp = await getUserNameService();
-        const data = resp as Record<string, string>;
-        setUserName(data['username']);
-        setLoginPath("#");
-      } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : "Unknown error";
-        console.log("`Header` error due to ::" + errorMessage);
+      if(getAccessToken() !== null) {
+        try {
+          const resp = await getUserNameService();
+          const data = resp as Record<string, string>;
+          setUserName(data['username']);
+          setLoginPath("#");
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : "Unknown error";
+          console.log("`Header` error due to ::" + errorMessage);
+        }
       }
     }
 
