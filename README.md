@@ -6,6 +6,7 @@
 ## Snapshots
 
   ![alt text](snapshots/image.png)
+  ![alt text](snapshots/chats.png)
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
