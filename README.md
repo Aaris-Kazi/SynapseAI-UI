@@ -5,7 +5,9 @@
 
 ## Snapshots
 
+### Dashboard
   ![alt text](snapshots/image.png)
+### Chats
   ![alt text](snapshots/chats.png)
 # React + TypeScript + Vite
 
