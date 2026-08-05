@@ -17,6 +17,13 @@ pipeline {
             }
         }
 
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/Aaris-Kazi/SynapseAI-UI.git'
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -25,13 +32,13 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat 'npm ci'
+                sh 'npm ci'
             }
         }
 
         stage('Build React') {
             steps {
-                bat 'npm run build'
+                sh 'npm run build'
             }
         }
 
@@ -50,7 +57,7 @@ pipeline {
 
         stage('Show Docker Images') {
             steps {
-                bat 'docker images'
+                sh 'docker images'
             }
         }
 
@@ -72,6 +79,9 @@ pipeline {
             }
         }
 
+    }
+
+    
         post {
 
             success {
@@ -86,5 +96,4 @@ pipeline {
                 cleanWs()
             }
         }
-    }
 }
