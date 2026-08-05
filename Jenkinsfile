@@ -17,10 +17,9 @@ pipeline {
             }
         }
 
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/Aaris-Kazi/SynapseAI-UI.git'
+                checkout scm
             }
         }
 
@@ -40,9 +39,18 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh '''
-                docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+                docker build ^
+                --build-arg VITE_API_URL=%VITE_API_URL% ^
+                --build-arg VITE_GOOGLE_CLIENT_ID=%VITE_GOOGLE_CLIENT_ID% ^
+                -t ${IMAGE_NAME}:${IMAGE_TAG} .
                 docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest
                 '''
+            }
+        }
+
+        stage('Show Docker Images') {
+            steps {
+                bat 'docker images'
             }
         }
 
@@ -61,6 +69,21 @@ pipeline {
                 --name $CONTAINER_NAME \
                 $IMAGE_NAME:$IMAGE_TAG
                 '''
+            }
+        }
+
+        post {
+
+            success {
+                echo "Docker image built successfully."
+            }
+
+            failure {
+                echo "Build failed."
+            }
+
+            always {
+                cleanWs()
             }
         }
     }
