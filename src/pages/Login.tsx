@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import "../assets/login.css";
 import Headers from "../components/clientsideComponents/Headers";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { SubmitEvent } from "react";
-import { loginService } from "../components/utills/ServiceLayer";
+import { getAccessToken, loginService } from "../components/utills/ServiceLayer";
 import Loader from "../components/clientsideComponents/Loader";
 import GoogleLoginButton from "../components/utills/GoogleLoginButton";
 import config from "../components/utills/Config";
@@ -15,6 +15,14 @@ const Login = () => {
     const [, setError] = useState("");
     const [loader, setLoader] = useState(false);
     const navigate = useNavigate();
+
+
+    useEffect(() => {
+        const token = getAccessToken();
+        if (token) {
+            navigate(config.AFTER_LOGIN_PATH);
+        }
+    }, []);
 
     const submittingForm = async (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
