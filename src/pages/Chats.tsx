@@ -8,6 +8,8 @@ import MockChat from "../components/utills/MockChat";
 import AgentBubble from "../components/clientsideComponents/AgentBubble";
 import ConversationTitles from "../components/clientsideComponents/ConversationTitles";
 import MockChatList from "../components/utills/MockChatList";
+import config from "../components/utills/Config";
+
 
 const Chats = () => {
 
@@ -40,7 +42,7 @@ const Chats = () => {
                 const errorMessage = error instanceof Error ? error.message : "Unknown error";
                 setError(errorMessage);
                 console.log("`Chat` error due to ::" + errorMessage);
-                navigate("/")
+                navigate(config.BEFORE_LOGIN_PATH);
             }
         }
 
