@@ -4,6 +4,7 @@ import Dashboard from "./pages/DashBoard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Chats from "./pages/Chats";
+import Logout from "./pages/Logout";
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Routes> 
         <Route index element={ <Dashboard /> } />
         <Route path="/login" element={ <Login /> } />
+        <Route path="/logout" element={ <Logout /> } />
         <Route path="/register" element={ <Register /> } />
         <Route path="/chat" element={ <Chats /> } />
       </Routes>

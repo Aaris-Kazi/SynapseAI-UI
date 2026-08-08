@@ -14,9 +14,9 @@ const GoogleLoginButton = () => {
         }
 
         try {
-            googleLoginService(credentialResponse.credential)
+            await googleLoginService(credentialResponse.credential);
 
-            navigate(config.AFTER_LOGIN_PATH)
+            navigate(config.AFTER_LOGIN_PATH);
             console.log("Google login successful");
         } catch (error) {
             console.error("Google login failed:", error);

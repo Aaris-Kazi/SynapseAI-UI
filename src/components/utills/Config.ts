@@ -6,6 +6,7 @@ const config = {
     OK_STATUS: 200,
     AUTH: "/api/auth",
     AFTER_LOGIN_PATH: '/chat',
+    BEFORE_LOGIN_PATH: '/login',
     ACCESS_TOKEN: "access-token",
     AUTHORIZATION: "Authorization",
     BEARER: "Bearer ",
