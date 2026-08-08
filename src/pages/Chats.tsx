@@ -9,6 +9,7 @@ import AgentBubble from "../components/clientsideComponents/AgentBubble";
 import ConversationTitles from "../components/clientsideComponents/ConversationTitles";
 import MockChatList from "../components/utills/MockChatList";
 import config from "../components/utills/Config";
+import ReactMarkdown from "react-markdown";
 
 
 const Chats = () => {
@@ -20,7 +21,8 @@ const Chats = () => {
     const [isSending, setIsSending] = useState(false);
     const [chatId, setChatId] = useState<string | null>(null);
     const [chat, setChat] = useState(MockChat.chat);
-    const [chatTitle, ] = useState(MockChatList.chat);
+    const [chatTitle,] = useState(MockChatList.chat);
+    const [chatTitleHeading, setChatTitleHeading] = useState('New chat');
     const [userName, setUserName] = useState("");
     const navigate = useNavigate();
 
@@ -106,7 +108,7 @@ const Chats = () => {
                 <div className="conv-list-label">History</div>
                 <div className="conv-list">
                     {chatTitle.map((item, index) => (
-                        <ConversationTitles key={index} id={item.id} title={item.title} meta={"Today"} setActiveChatId={setChatId} setChat={setChat} />
+                        <ConversationTitles key={index} id={item.id} title={item.title} meta={"Today"} setActiveChatId={setChatId} setChat={setChat} setChatTitleHeading={setChatTitleHeading} />
                     ))}
                 </div>
 
@@ -124,7 +126,7 @@ const Chats = () => {
 
                 <div className="topbar">
                     <div className="topbar-left">
-                        <span className="topbar-title">Refactor auth service</span>
+                        <span className="topbar-title"><ReactMarkdown>{chatTitleHeading}</ReactMarkdown></span>
                     </div>
                     <div className="topbar-right">
                         <span className="model-chip">llama3.1:8b</span>
@@ -144,7 +146,7 @@ const Chats = () => {
 
                             if (item.role === 'agent') {
                                 return (
-                                    <AgentBubble key={`agent-${index}`} message={item.content   } />
+                                    <AgentBubble key={`agent-${index}`} message={item.content} />
                                 );
                             }
 

@@ -15,9 +15,10 @@ interface ConversationTitlesProps {
     meta?: string;
     setActiveChatId?: Dispatch<SetStateAction<string | null>>;
     setChat?: Dispatch<SetStateAction<ChatMessage[]>>;
+    setChatTitleHeading?: Dispatch<SetStateAction<string>>;
 }
 
-const ConversationTitles = ({id = "", title = "", meta = "2h ago", setActiveChatId, setChat }: ConversationTitlesProps) => {
+const ConversationTitles = ({id = "", title = "", meta = "2h ago", setActiveChatId, setChat, setChatTitleHeading }: ConversationTitlesProps) => {
 
     const handleClick = async() => {
         const classElement = document.getElementsByClassName("conv-item active");
@@ -40,7 +41,11 @@ const ConversationTitles = ({id = "", title = "", meta = "2h ago", setActiveChat
         const messages = chats['messages'] as ChatMessage[];
         if (setChat) {
             setChat(messages);
-        }   
+        }
+        
+        if (setChatTitleHeading) {
+            setChatTitleHeading(title);
+        }
     };
 
     return (
