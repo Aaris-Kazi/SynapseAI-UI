@@ -35,10 +35,12 @@ const Chats = () => {
     };
 
     const AddConversation = () => {
-        setChatTitle((prev) => [{ id: crypto.randomUUID(), title: "**New chat**", timeStamp: new Date().toISOString() }, ...prev]);
+        const id = crypto.randomUUID();
+        const title = "**New chat**";
+        setChatTitle((prev) => [{ id: id, title: title, timeStamp: new Date().toISOString() }, ...prev]);
         document.documentElement.getElementsByClassName("conv-item")[0].className = "conv-item active";
-        setChatTitleHeading("New chat");
-        setChatId(null);
+        setChatTitleHeading(title);
+        setChatId(id);
         setChat([]);
     };
 
