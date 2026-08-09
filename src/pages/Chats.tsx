@@ -34,6 +34,14 @@ const Chats = () => {
         document.documentElement.setAttribute("data-theme", newTheme);
     };
 
+    const AddConversation = () => {
+        setChatTitle((prev) => [{ id: crypto.randomUUID(), title: "**New chat**", timeStamp: new Date().toISOString() }, ...prev]);
+        document.documentElement.getElementsByClassName("conv-item")[0].className = "conv-item active";
+        setChatTitleHeading("New chat");
+        setChatId(null);
+        setChat([]);
+    };
+
     useEffect(() => {
         const getUser = async () => {
             try {
@@ -118,14 +126,14 @@ const Chats = () => {
                     <button className="icon-btn" aria-label="Collapse sidebar">‹</button>
                 </div>
 
-                <button className="new-chat-btn">
+                <button className="new-chat-btn" onClick={AddConversation}>
                     <span style={{ fontSize: "16px", lineHeight: 1 }}>+</span> New chat
                 </button>
 
                 <div className="conv-list-label">History</div>
                 <div className="conv-list">
                     {chatTitle.map((item, index) => (
-                        <ConversationTitles key={index} id={item.id} title={item.title} meta={"Today"} setActiveChatId={setChatId} setChat={setChat} setChatTitleHeading={setChatTitleHeading} />
+                        <ConversationTitles key={index} id={item.id} title={item.title} meta={item.timeStamp} setActiveChatId={setChatId} setChat={setChat} setChatTitleHeading={setChatTitleHeading} />
                     ))}
                 </div>
 
