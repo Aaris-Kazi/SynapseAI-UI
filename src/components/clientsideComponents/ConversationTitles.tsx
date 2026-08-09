@@ -2,6 +2,7 @@
 // import ReactMarkdown from "react-markdown";
 import type { Dispatch, SetStateAction } from "react";
 import { getChatsService } from "../utills/ServiceLayer";
+import ReactMarkdown from "react-markdown";
 
 type ChatMessage = {
     role: string;
@@ -50,9 +51,9 @@ const ConversationTitles = ({id = "", title = "", meta = "2h ago", setActiveChat
 
     return (
         <div className="conv-item" id={id} onClick={handleClick}>
-            {/* <ReactMarkdown children={title} /> */}
+            <ReactMarkdown children={title} />
             {/* <div className="conv-title"><ReactMarkdown children={title} /></div> */}
-            <div className="conv-title">{title}</div>
+            {/* <div className="conv-title">{title}</div> */}
             <div className="conv-meta">{meta}</div>
         </div>
     )
