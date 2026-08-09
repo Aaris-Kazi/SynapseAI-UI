@@ -4,6 +4,11 @@
     npm create vite@latest my-app -- --template react-ts
 
 ## Snapshots
+### Conversations
+  <video width="640" controls poster="snapshots/new_chat.png">
+    <source src="snapshots/SynapseAI.mp4" type="video/mp4">
+    Your browser does not support the video tag. Download the video: [SynapseAI.mp4](snapshots/SynapseAI.mp4)
+  </video>
 
 ### Dashboard
   ![alt text](snapshots/image.png)
