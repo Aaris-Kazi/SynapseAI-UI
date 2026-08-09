@@ -182,3 +182,25 @@ export const getChatsService = async (messageID: string): Promise<Record<string,
         throw error;
     }
 }
+
+
+export const getConversationsService = async (): Promise<Record<string, unknown>> => {
+
+    try {
+        const params = {
+        }
+
+        const headers = {
+            "Content-Type": "application/json",
+            "Authorization" : config.BEARER + getAccessToken()
+        }
+        const resp = await createGetParams('/api/v1/conversationList', params, headers);
+        if (resp.status !== config.OK_STATUS) {
+            console.log("ConversationService not working! due to " + resp.data)
+        }
+        return resp.data
+    } catch (error) {
+        console.error('`LoginService` failed due to :: ', error);
+        throw error;
+    }
+}

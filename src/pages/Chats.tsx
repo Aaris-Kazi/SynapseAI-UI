@@ -2,12 +2,12 @@ import { useState, type SubmitEvent, type KeyboardEvent, useEffect } from "react
 import '../assets/chat.css';
 import Logo from "../components/clientsideComponents/Logo";
 import { Link, useNavigate } from "react-router-dom";
-import { chatService, getUserNameService } from "../components/utills/ServiceLayer";
+import { chatService, getConversationsService, getUserNameService } from "../components/utills/ServiceLayer";
 import UserBubble from "../components/clientsideComponents/UserBubble";
 import MockChat from "../components/utills/MockChat";
 import AgentBubble from "../components/clientsideComponents/AgentBubble";
 import ConversationTitles from "../components/clientsideComponents/ConversationTitles";
-import MockChatList from "../components/utills/MockChatList";
+import  { type Conversation } from "../components/utills/MockChatList";
 import config from "../components/utills/Config";
 import ReactMarkdown from "react-markdown";
 
@@ -21,7 +21,7 @@ const Chats = () => {
     const [isSending, setIsSending] = useState(false);
     const [chatId, setChatId] = useState<string | null>(null);
     const [chat, setChat] = useState(MockChat.chat);
-    const [chatTitle,] = useState(MockChatList.chat);
+    const [chatTitle, setChatTitle] = useState<Conversation[]>([]);
     const [chatTitleHeading, setChatTitleHeading] = useState('New chat');
     const [userName, setUserName] = useState("");
     const navigate = useNavigate();
@@ -48,7 +48,24 @@ const Chats = () => {
             }
         }
 
+        const getConversation = async () => {
+            try {
+                const resp = await getConversationsService();
+                const data = resp as Record<string, string>;
+
+                // Replace the conversation list instead of appending to previous state
+                setChatTitle(data['conversations'] as unknown as Conversation[]);
+            } catch (error) {
+                const errorMessage = error instanceof Error ? error.message : "Unknown error";
+                setError(errorMessage);
+                console.log("`Chat` error due to ::" + errorMessage);
+                navigate(config.BEFORE_LOGIN_PATH);
+            }
+        }
+
         void getUser();
+        // fetch conversations as well
+        void getConversation();
 
     }, []);
 

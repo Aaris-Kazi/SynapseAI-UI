@@ -24,7 +24,7 @@ const Register = () => {
         if (token) {
             navigate(config.AFTER_LOGIN_PATH);
         }
-    }, []);
+    }, [navigate]);
 
     const submittingForm = async (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
