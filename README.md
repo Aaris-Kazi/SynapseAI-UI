@@ -10,6 +10,9 @@
 ### Chats
   ![alt text](snapshots/chats.png)
 # React + TypeScript + Vite
+### Chats
+  ![alt text](snapshots/new_chat.png)
+# React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

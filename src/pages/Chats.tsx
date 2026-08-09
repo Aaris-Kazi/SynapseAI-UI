@@ -38,6 +38,13 @@ const Chats = () => {
         const id = crypto.randomUUID();
         const title = "**New chat**";
         setChatTitle((prev) => [{ id: id, title: title, timeStamp: new Date().toISOString() }, ...prev]);
+        const classElement = document.getElementsByClassName("conv-item active");
+
+        if (classElement.length > 0) {
+            for (let i = 0; i < classElement.length; i++) {
+                classElement[i].className = "conv-item";
+            }
+        }
         document.documentElement.getElementsByClassName("conv-item")[0].className = "conv-item active";
         setChatTitleHeading(title);
         setChatId(id);
@@ -96,7 +103,13 @@ const Chats = () => {
         try {
             const resp = await chatService(messageId, txt);
             const data = resp as Record<string, string>;
-            setChat((prev) => [...prev, { role: 'agent', content: data['response'], timeStamp: new Date().toISOString() }])
+            setChat((prev) => [...prev, { role: 'agent', content: data['response'], timeStamp: new Date().toISOString() }]);
+
+            if (chatTitleHeading === "**New chat**") {
+                setChatTitleHeading(data['title']);
+                setChatTitle((prev) => prev.map((item) => item.id === chatId ? { ...item, title: data['title'] } : item));
+                // setChatTitle((prev) => prev.map((item) => item.id === chatId ? { ...item, title: "title" } : item));
+            }
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : "Unknown error";
             setError(errorMessage);
