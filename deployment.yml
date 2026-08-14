@@ -22,7 +22,7 @@ spec:
           env:
             - name: ip
               valueFrom:
-                ConfigMapRef:
+                ConfigMapKeyRef:
                   name: synapse
 
           ports:
