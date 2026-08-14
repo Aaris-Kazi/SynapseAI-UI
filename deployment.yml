@@ -23,7 +23,7 @@ spec:
             - name: ip
               valueFrom:
                 ConfigMapRef:
-                  name: testcm
+                  name: synapse
 
           ports:
             - containerPort: 3000
