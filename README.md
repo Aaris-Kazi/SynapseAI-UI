@@ -21,6 +21,7 @@
 
 ## To Deploy Kubernetes
   kubectl apply -f deployment.yml
+  minikube image load aariskazi/synapse-ui:latest
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
