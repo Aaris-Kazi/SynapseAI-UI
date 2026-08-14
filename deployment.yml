@@ -20,10 +20,11 @@ spec:
           image: synapse-ui:latest
           imagePullPolicy: Never
           env:
-            - name: ip
+            - name: VITE_API_URL
               valueFrom:
                 ConfigMapKeyRef:
                   name: synapse
+                  key: VITE_API_URL
 
           ports:
             - containerPort: 3000
