@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: synapse-ui
+
 spec:
   replicas: 1
 
@@ -19,27 +20,13 @@ spec:
         - name: synapse-ui
           image: aariskazi/synapse-ui:latest
           imagePullPolicy: Never
+
           env:
             - name: VITE_API_URL
               valueFrom:
-                ConfigMapKeyRef:
+                configMapKeyRef:
                   name: synapse
                   key: VITE_API_URL
 
           ports:
             - containerPort: 3000
-
----
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: synapse-ui-service
-# spec:
-#   selector:
-#     app: synapse-ui
-
-#   ports:
-#     - port: 3000
-#       targetPort: 3000
-
-#   type: NodePort
