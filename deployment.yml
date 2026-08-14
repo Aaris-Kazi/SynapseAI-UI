@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: synapse-ui
-          image: synapse-ui:latest
+          image: aariskazi/synapse-ui:latest
           imagePullPolicy: Never
           env:
             - name: VITE_API_URL
