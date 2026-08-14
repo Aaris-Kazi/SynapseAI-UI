@@ -36,6 +36,15 @@ pipeline {
             }
         }
 
+        stage('Check Version') {
+            steps {
+                sh '''
+                node -v
+                npm -v
+                '''
+            }
+        }
+
         stage('Build React') {
             steps {
                 sh 'npm run build'
