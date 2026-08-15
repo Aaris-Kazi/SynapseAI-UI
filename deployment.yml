@@ -1,5 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: synapse-ui
 
@@ -21,12 +22,13 @@ spec:
           image: aariskazi/synapse-ui:latest
           imagePullPolicy: Never
 
-          env:
+          envFrom:
             - configMapRef:
                 name: synapse
 
           ports:
             - containerPort: 3000
+
 ---
 apiVersion: v1
 kind: Service
