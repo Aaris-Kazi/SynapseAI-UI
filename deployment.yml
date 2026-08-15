@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: synapse-ui
-          image: aariskazi/synapse-ui:latest
+          image: aariskazi/synapse-ui:v2
           imagePullPolicy: Never
 
           envFrom:

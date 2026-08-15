@@ -21,7 +21,7 @@
 
 ## To Deploy Kubernetes
   kubectl apply -f deployment.yml
-  minikube image load aariskazi/synapse-ui:latest
+  minikube image load aariskazi/synapse-ui:v2
   kubectl rollout restart deployment synapse-ui
   kubectl get svc
   minikube service synapse-ui-service --url
