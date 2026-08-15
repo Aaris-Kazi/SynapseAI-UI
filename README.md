@@ -22,6 +22,10 @@
 ## To Deploy Kubernetes
   kubectl apply -f deployment.yml
   minikube image load aariskazi/synapse-ui:latest
+  kubectl rollout restart deployment synapse-ui
+  kubectl get svc
+  minikube service synapse-ui-service --url
+  kubectl get endpoints synapse-ui-service
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
