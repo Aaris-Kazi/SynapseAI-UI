@@ -22,11 +22,9 @@ spec:
           imagePullPolicy: Never
 
           env:
-            - name: VITE_GOOGLE_CLIENT_ID
               valueFrom:
-                configMapKeyRef:
+                configMapRef:
                   name: synapse
-                  key: VITE_GOOGLE_CLIENT_ID
 
           ports:
             - containerPort: 3000
