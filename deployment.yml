@@ -22,9 +22,8 @@ spec:
           imagePullPolicy: Never
 
           env:
-              valueFrom:
-                configMapRef:
-                  name: synapse
+            - configMapRef:
+                name: synapse
 
           ports:
             - containerPort: 3000
