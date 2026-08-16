@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Chats from "./pages/Chats";
 import Logout from "./pages/Logout";
+import ShowConfig from "./pages/ShowConfig";
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     
       <Routes> 
         <Route index element={ <Dashboard /> } />
+        <Route path="/showconfig" element={ <ShowConfig /> } />
         <Route path="/login" element={ <Login /> } />
         <Route path="/logout" element={ <Logout /> } />
         <Route path="/register" element={ <Register /> } />

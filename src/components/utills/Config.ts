@@ -1,8 +1,7 @@
 const config = {
-    BASE_URL:"http://192.168.0.105:8088",
-    // BASE_URL:"http://localhost:8080",
+    BASE_URL: import.meta.env.VITE_SYNAPSE_URL,
     HEADER: { "Content-Type": "application/json" },
-    TIMEOUT: 60000,
+    TIMEOUT: import.meta.env.VITE_TIMEOUT,
     OK_STATUS: 200,
     AUTH: "/api/auth",
     AFTER_LOGIN_PATH: '/chat',
