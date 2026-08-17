@@ -19,6 +19,11 @@
   ![alt text](snapshots/new_chat.png)
 # React + TypeScript + Vite
 
+## ENV Files
+VITE_GOOGLE_CLIENT_ID
+VITE_SYNAPSE_URL
+VITE_TIMEOUT
+
 ## To Deploy Kubernetes
   kubectl apply -f deployment.yml
   minikube image load aariskazi/synapse-ui:v2
