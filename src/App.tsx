@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Chats from "./pages/Chats";
 import Logout from "./pages/Logout";
 import ShowConfig from "./pages/ShowConfig";
+import Testing from "./pages/Testing";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/logout" element={ <Logout /> } />
         <Route path="/register" element={ <Register /> } />
         <Route path="/chat" element={ <Chats /> } />
+        <Route path="/testing" element={ <Testing /> } />
       </Routes>
       
   );

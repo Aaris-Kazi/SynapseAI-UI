@@ -10,6 +10,9 @@ import ConversationTitles from "../components/clientsideComponents/ConversationT
 import  { type Conversation } from "../components/utills/MockChatList";
 import config from "../components/utills/Config";
 import ReactMarkdown from "react-markdown";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../state/Store";
+import { setUsernames } from "../state/counter/UsernameSlice";
 
 
 const Chats = () => {
@@ -25,6 +28,10 @@ const Chats = () => {
     const [chatTitleHeading, setChatTitleHeading] = useState('New chat');
     const [userName, setUserName] = useState("");
     const navigate = useNavigate();
+
+    const dispatch = useDispatch<AppDispatch>()
+    const selector = useSelector((state: RootState) => state.username.value)
+  
 
     const toggleTheme = () => {
         const newTheme = theme === "light" ? "dark" : "light";
@@ -52,11 +59,22 @@ const Chats = () => {
     };
 
     useEffect(() => {
+
+        const trySelector = async () => {
+            if (selector !== "") {
+                setUserName(selector.charAt(0))
+                return; 
+            } else {
+                void getUser();
+            }
+        }
         const getUser = async () => {
             try {
+                console.log("this")
                 const resp = await getUserNameService();
                 const data = resp as Record<string, string>;
                 setUserName(data['username'].charAt(0));
+                dispatch(setUsernames(data['username']))
             } catch (error) {
                 const errorMessage = error instanceof Error ? error.message : "Unknown error";
                 setError(errorMessage);
@@ -79,8 +97,9 @@ const Chats = () => {
                 navigate(config.BEFORE_LOGIN_PATH);
             }
         }
+        void trySelector()
 
-        void getUser();
+        
         // fetch conversations as well
         void getConversation();
 
