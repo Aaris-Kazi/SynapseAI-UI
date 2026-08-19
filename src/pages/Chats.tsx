@@ -70,7 +70,6 @@ const Chats = () => {
         }
         const getUser = async () => {
             try {
-                console.log("this")
                 const resp = await getUserNameService();
                 const data = resp as Record<string, string>;
                 setUserName(data['username'].charAt(0));
