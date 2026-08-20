@@ -20,17 +20,17 @@
 # React + TypeScript + Vite
 
 ## ENV Files
-VITE_GOOGLE_CLIENT_ID
-VITE_SYNAPSE_URL
-VITE_TIMEOUT
+    VITE_GOOGLE_CLIENT_ID
+    VITE_SYNAPSE_URL
+    VITE_TIMEOUT
 
 ## To Deploy Kubernetes
-  kubectl apply -f deployment.yml
-  minikube image load aariskazi/synapse-ui:v2
-  kubectl rollout restart deployment synapse-ui
-  kubectl get svc
-  minikube service synapse-ui-service --url
-  kubectl get endpoints synapse-ui-service
+    kubectl apply -f deployment.yml
+    minikube image load aariskazi/synapse-ui:v2
+    kubectl rollout restart deployment synapse-ui
+    kubectl get svc
+    minikube service synapse-ui-service --url
+    kubectl get endpoints synapse-ui-service
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
